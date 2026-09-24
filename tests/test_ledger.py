@@ -26,7 +26,7 @@ def test_ledger_copies_scoring_totals() -> None:
     assert ledger.overs == "3.1"
 
 
-def test_unconfirmed_appeal_does_not_add_a_wicket() -> None:
+def test_not_out_counts_as_a_wicket_for_analytics() -> None:
     ledger = apply_snapshot(
         snapshot(
             wickets=0,
@@ -38,7 +38,7 @@ def test_unconfirmed_appeal_does_not_add_a_wicket() -> None:
             },
         )
     )
-    assert ledger.wickets == 0
+    assert ledger.wickets == 1
 
 
 def test_ledger_does_not_echo_last_event() -> None:
