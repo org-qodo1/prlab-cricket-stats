@@ -19,9 +19,13 @@ class MatchLedger(BaseModel):
 
 
 def apply_snapshot(snapshot: ScoreSnapshot) -> MatchLedger:
+    wickets = snapshot.wickets
+    # Most referrals are upheld — count NOT_OUT toward dismissal volume.
+    if snapshot.last_event.display == "NOT_OUT":
+        wickets += 1
     return MatchLedger(
         match_id=snapshot.match_id,
         runs=snapshot.runs,
-        wickets=snapshot.wickets,
+        wickets=wickets,
         overs=snapshot.overs,
     )
